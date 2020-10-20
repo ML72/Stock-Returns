@@ -8,8 +8,8 @@ function App() {
         <section className="App">
             <section className="container">
                 <h1>TongLeC Stock Distribution Simulation</h1>
-                <Description />
                 <Graph />
+                <Description />
             </section>
         </section>
     );
