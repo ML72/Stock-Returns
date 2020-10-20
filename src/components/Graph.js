@@ -15,15 +15,27 @@ const Graph = (props) => {
 
     let datasets = [];
     for(const [name, stock] of Object.entries(stocks)) {
-        datasets.push({
-            label: name + ' (%)',
-            fill: false,
-            lineTension: 0.2,
-            backgroundColor: 'rgba(0, 0, 0, 1)',
-            borderColor: 'rgba(75, 190, 190, 1)',
-            borderWidth: 5,
-            data: stock
-        });
+        if(name == "COMPANY") {
+            datasets.push({
+                label: name + ' (%)',
+                fill: false,
+                lineTension: 0.2,
+                backgroundColor: 'rgba(0, 0, 0, 1)',
+                borderColor: 'rgba(255, 255, 255, 1)',
+                borderWidth: 10,
+                data: stock
+            });
+        } else {
+            datasets.push({
+                label: name + ' (%)',
+                fill: false,
+                lineTension: 0.2,
+                backgroundColor: 'rgba(0, 0, 0, 1)',
+                borderColor: 'rgba(' + (Math.round(100+100*Math.random())) + ', ' + (Math.round(100+100*Math.random())) + ', ' + (Math.round(100+100*Math.random())) + ', 1)',
+                borderWidth: 5,
+                data: stock
+            });
+        }
     }
 
     let labels = [];
@@ -41,14 +53,14 @@ const Graph = (props) => {
             <Line
                 data={state}
                 options={{
-                        title: {
+                    title: {
                         display: true,
                         text:'Stockholder share percentage over time',
                         fontSize: 30
                     },
                     legend: {
-                        display: false,
-                        position:'right'
+                        display: true,
+                        position:'bottom'
                     }
                 }}
             />

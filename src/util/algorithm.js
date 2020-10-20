@@ -3,7 +3,7 @@ import { geometricSummation } from './math';
 // finds the constants A and B to use in the percent total deduction
 function getA(x) {
 
-    return Math.max(Math.sqrt(100*x), 100);
+    return Math.min(Math.sqrt(100*x), 100);
 }
 
 function getB(x) {
@@ -60,6 +60,18 @@ export const performanceToStocks = (performances) => {
 
     // calculate stock distributions over time
     for(let year = 0; year < maxLength; year++) {
+
+        // configure returns
+        if(stockState["COMPANY"] <= 50) {
+
+            employees.forEach((employee) => {
+
+                const toReturn = stockState[employee]*0.15;
+                    
+                stockState[employee] -= toReturn;
+                stockState["COMPANY"] += toReturn;
+            });
+        }
 
         // find how much company has to give
         let companyLeft = stockState["COMPANY"];
