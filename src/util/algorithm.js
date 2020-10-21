@@ -44,18 +44,18 @@ export const performanceToStocks = (performances) => {
 
     // initialize stock states
     let stockState = {
-        "COMPANY": 100
+        "COMPANY": 100.00
     }
 
     let stockDistribution = {
-        "COMPANY": [100]
+        "COMPANY": [100.00]
     }
 
     const employees = Object.keys(performances);
 
     employees.forEach((employee) => {
-        stockState[employee] = 0;
-        stockDistribution[employee] = [0];
+        stockState[employee] = 0.00;
+        stockDistribution[employee] = [0.00];
     });
 
     // calculate stock distributions over time
@@ -66,7 +66,7 @@ export const performanceToStocks = (performances) => {
 
             employees.forEach((employee) => {
 
-                const toReturn = stockState[employee]*0.15;
+                const toReturn = stockState[employee]*0.08;
                     
                 stockState[employee] -= toReturn;
                 stockState["COMPANY"] += toReturn;
@@ -88,7 +88,7 @@ export const performanceToStocks = (performances) => {
         // find how much each employee gets and assign stocks respectively
         employees.forEach((employee) => {
 
-            const performance = performances[employee][year];
+            const performance = performances[employee][year] ? performances[employee][year] : 0;
 
             const toGet = percentIndividual(performance, totalScore, companyToGive);
 
@@ -99,7 +99,7 @@ export const performanceToStocks = (performances) => {
 
         for(const [name, stock] of Object.entries(stockState)) {
             
-            stockDistribution[name].push(stock);
+            stockDistribution[name].push(Math.round(100*stock)/100);
         }
     }
 
